@@ -1,10 +1,11 @@
 import { Card } from "./components/card";
+import { Footer } from "./components/footer";
 import { SocialMedia } from "./components/header";
 import React from "react";
 
 export default function Home() {
   return (
-    <div className="flex flex-col md:flex-col gap-2 items-center justify-center">
+    <div className="flex flex-col md:flex-col items-center justify-center">
       <SocialMedia />
       <div className="bg-gray-100 flex justify-center min-h-screen p-4">
         <div className="flex flex-col md:flex-row gap-4 items-start">
@@ -23,7 +24,10 @@ large-scale enterprise applications."
           />
         </div>
       </div>
-      WIP
+
+      <footer className="flex w-full items-center overflow-hidden h-auto p-2 sticky bottom-0">
+        <Footer />
+      </footer>
     </div>
   );
 }

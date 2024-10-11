@@ -16,7 +16,7 @@
   }
 }
 
-body {
+body, footer {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
@@ -26,6 +26,18 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+@keyframes scroll {
+  from {
+      transform: translateX(100%);
+  }
+  to {
+      transform: translateX(-100%);
+  }
+}
+
+.scroll-footer {
+  animation: scroll 15s linear infinite;
+}
 @layer utilities {
   .text-balance {
     text-wrap: balance;
