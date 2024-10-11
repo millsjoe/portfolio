@@ -8,10 +8,6 @@ if (process.env.NODE_ENV === "development") {
 }
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  images: {
-    domains: ["avatars.githubusercontent.com"],
-  },
-};
+const nextConfig = {};
 
 export default nextConfig;

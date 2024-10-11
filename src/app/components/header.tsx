@@ -43,7 +43,7 @@ export const SocialMedia = () => {
         ))}
       </div>
       <Image
-        src="https://avatars.githubusercontent.com/u/42638335?v=4"
+        src="/me.png"
         alt="Joe Mills"
         width={50}
         height={50}
