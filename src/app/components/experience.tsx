@@ -1,7 +1,7 @@
 export const Experience = () => {
   return (
-    <div className="bg-white p-5 rounded-lg shadow-lg flex-1">
-      <h2 className="text-2xl font-bold mb-2">Experience</h2>
+    <div className="bg-white p-5 rounded-lg shadow-lg flex-1 md:max-h-48">
+      <h2 className="text-2xl font-bold mb-2 text-black">Experience</h2>
       <p className="text-gray-700">{text}</p>
     </div>
   );

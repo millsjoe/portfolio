@@ -28,7 +28,7 @@ const socialMediaLinks: SocialMediaIconProps[] = [
 
 export const SocialMedia = () => {
   return (
-    <div className="flex flex-col gap-4 items-center justify-center">
+    <div className="flex flex-col gap-4 items-center justify-center pt-2">
       <div className="flex space-x-4">
         {socialMediaLinks.map(({ platform, url, icon }) => (
           <a

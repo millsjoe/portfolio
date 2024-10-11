@@ -1,7 +1,7 @@
 export const AboutMe = () => {
   return (
-    <div className="bg-white p-5 rounded-lg shadow-lg flex-1">
-      <h2 className="text-2xl font-bold mb-2">About Me</h2>
+    <div className="bg-white p-5 rounded-lg shadow-lg flex-1 h-auto md:max-h-48">
+      <h2 className="text-2xl font-bold mb-2 text-black">About Me</h2>
       <p className="text-gray-700">{text}</p>
     </div>
   );
