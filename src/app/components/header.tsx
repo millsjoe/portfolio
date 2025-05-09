@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
-import { FaGithub, FaTwitter, FaLinkedin } from "react-icons/fa";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { FaBluesky } from "react-icons/fa6";
 
 interface SocialMediaIconProps {
   platform: string;
@@ -15,9 +16,9 @@ const socialMediaLinks: SocialMediaIconProps[] = [
     icon: <FaLinkedin />,
   },
   {
-    platform: "Twitter",
-    url: "https://x.com/iamjoemills",
-    icon: <FaTwitter />,
+    platform: "Bluesky",
+    url: "https://bsky.app/profile/mills.codes",
+    icon: <FaBluesky />,
   },
   {
     platform: "Github",
@@ -49,6 +50,7 @@ export const SocialMedia = () => {
         height={50}
         className="rounded-full"
       />
+      <h1 className="text-2xl font-bold">Hi! I&apos;m Joe</h1>
     </div>
   );
 };

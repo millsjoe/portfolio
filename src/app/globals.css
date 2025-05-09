@@ -43,3 +43,15 @@ body, footer {
     text-wrap: balance;
   }
 }
+
+.vertical-timeline-element-content {
+  border-radius: 1em !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05) !important;
+}
+
+.vertical-timeline-element-icons {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  padding: 20px 0;
+}
