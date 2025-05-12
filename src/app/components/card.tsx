@@ -30,6 +30,7 @@ export const Card = ({ heading, text, imageUrl, rating, link }: ICardProps) => {
         className="rounded-lg hover:scale-105 transition-transform duration-300 object-cover"
         width={100}
         height={100}
+        loading="eager"
       />
     </div>
   );
