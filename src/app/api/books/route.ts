@@ -1,7 +1,7 @@
 import type { NextRequest } from "next/server";
 import { XMLParser } from "fast-xml-parser";
 
-const runtime = "edge";
+export const runtime = "edge";
 export async function GET(request: NextRequest) {
   let books;
   await fetch(
