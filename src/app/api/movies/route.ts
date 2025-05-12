@@ -14,6 +14,7 @@ interface IMovie {
   };
 }
 interface IMovieResponse {
+  last_watched_at: string;
   movie: IMovie;
 }
 export async function GET(request: NextRequest) {
@@ -31,12 +32,19 @@ export async function GET(request: NextRequest) {
   )
     .then(async (res) => {
       const data: IMovieResponse[] = await res.json();
-      movies = data.map((movie: IMovieResponse) => ({
-        title: movie.movie.title,
-        year: movie.movie.year,
-        image_url: movie.movie.images.poster[0],
-        link: `https://trakt.tv/movies/${movie.movie.ids.slug}`,
-      }));
+      movies = data
+        .map((movie: IMovieResponse) => ({
+          title: movie.movie.title,
+          year: movie.movie.year,
+          image_url: movie.movie.images.poster[0],
+          last_watched_at: movie.last_watched_at,
+          link: `https://trakt.tv/movies/${movie.movie.ids.slug}`,
+        }))
+        .sort(
+          (a, b) =>
+            new Date(b.last_watched_at).getTime() -
+            new Date(a.last_watched_at).getTime()
+        );
     })
     .catch((err) => {
       console.error("Error fetching data:", err);
