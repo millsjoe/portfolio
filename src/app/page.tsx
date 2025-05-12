@@ -3,6 +3,7 @@ import React from "react";
 import { Timeline } from "./components/timeline";
 import { Books } from "./components/books";
 import { Section } from "./components/section";
+import { Movies } from "./components/movies";
 
 export default function Home() {
   return (
@@ -13,8 +14,13 @@ export default function Home() {
         <Section title="Recently Read">
           <Books />
         </Section>
+        <Section title="Recently Watched">
+          <Movies />
+        </Section>
       </>
-      <h2 className="text-2xl font-bold text-[#0d3b66] p-4"> Timeline</h2>
+      <h2 className="text-2xl font-bold text-[#0d3b66] p-4 w-full md:w-3/4">
+        Timeline
+      </h2>
       <div className="flex justify-center min-h-screen p-4">
         <Timeline />
       </div>
@@ -26,14 +32,14 @@ const AboutMe = () => {
   return (
     <div className="w-full md:w-3/4">
       <h2 className="text-2xl font-bold text-[#0d3b66] p-4"> About Me</h2>
-      <p className="p-4">
+      <p className="p-4 text-gray-700">
         I am a Senior Software Engineer for Sky Betting and Gaming (Flutter
         UKI), responsible for all your favourite betting products and tools like
         the Games Launch Service and Reality Check Service. More recently, I
         have been involved with the development of Paddy Power & Betfair -
         gamblings in my blood at this point.
       </p>
-      <p className="p-4">
+      <p className="p-4 text-gray-700">
         When I&apos;m not working, I enjoy gaming, reading and watching movies.
         I thought it would be neat to keep you up to date on some of the things
         I&apos;ve been reading and watching.

@@ -70,8 +70,8 @@ pages_build_output_dir = ".vercel/output/static"
 
 ######## PREVIEW environment config ########
 
-# [env.preview.vars]
-# API_KEY = "xyz789"
+[env.preview.vars]
+API_KEY = "${API_KEY}"
 
 # [[env.preview.kv_namespaces]]
 # binding = "MY_KV_NAMESPACE"
@@ -81,6 +81,7 @@ pages_build_output_dir = ".vercel/output/static"
 
 [env.production.vars]
 NEXT_PUBLIC_BASE_URL = "https://joe.mills.codes"
+API_KEY = "${API_KEY}"
 
 # [[env.production.kv_namespaces]]
 # binding = "MY_KV_NAMESPACE"
