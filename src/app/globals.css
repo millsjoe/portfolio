@@ -42,6 +42,9 @@ body, footer {
   .text-balance {
     text-wrap: balance;
   }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
 }
 
 .vertical-timeline-element-content {
