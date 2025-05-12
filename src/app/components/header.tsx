@@ -50,7 +50,7 @@ export const SocialMedia = () => {
         height={50}
         className="rounded-full"
       />
-      <h1 className="text-2xl font-bold">Hi! I&apos;m Joe</h1>
+      <h1 className="text-2xl font-bold text-[#0d3b66]">Hi! I&apos;m Joe</h1>
     </div>
   );
 };

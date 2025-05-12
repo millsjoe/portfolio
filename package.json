@@ -13,6 +13,7 @@
     "cf-typegen": "wrangler types --env-interface CloudflareEnv env.d.ts"
   },
   "dependencies": {
+    "fast-xml-parser": "^5.2.3",
     "next": "15.3.2",
     "react": "^18",
     "react-dom": "^18",
