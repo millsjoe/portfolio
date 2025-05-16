@@ -15,16 +15,21 @@ export const Movies = async () => {
   return (
     <div className="flex flex-col justify-center p-4">
       <div className="flex flex-row items-center justify-center gap-4 mb-4">
-        {movies.slice(0, 8).map((movie: IMovie) => (
-          <Card
-            key={movie.title}
-            heading={movie.title}
-            text={movie.year}
-            imageUrl={`https://${movie.image_url}`}
-            link={movie.link}
-          />
-        ))}
+        {renderMovieCards(movies)}
       </div>
     </div>
   );
 };
+
+const renderMovieCards = (movies: IMovie[]) =>
+  movies
+    .slice(0, 8)
+    .map((movie) => (
+      <Card
+        key={movie.title}
+        heading={movie.title}
+        text={movie.year}
+        imageUrl={`https://${movie.image_url}`}
+        link={movie.link}
+      />
+    ));
