@@ -42,18 +42,12 @@ export const Timeline = () => {
           description="Spending my days mentoring other engineers. Continuing working on the SBG Games launch service and reality check service with the added bonus of migration of SBG -> Paddy Power Betfair. 
           Migration includes implementing a new design system in Storybook. Along with a new automation test framework using Playwright and Typescript."
           type="work"
-          icons={
-            <>
-              <SiTypescript />
-              <SiJavascript />
-              <SiStorybook />
-              <SiPlaywright />
-              <FaDocker />
-              <FaJenkins />
-              <FaReact />
-              <SiSplunk />
-            </>
-          }
+          icons={[
+            <SiTypescript key="ts" />,
+            <SiJavascript key="js" />,
+            <FaReact key="react" />,
+            <FaDocker key="docker" />,
+          ]}
         />
         <TimelineElement
           title="MSc Digital & Technology Solutions"
@@ -61,15 +55,12 @@ export const Timeline = () => {
           date="2021 - 2023"
           description="First class (alongside my SBG employment). I wrote my dissertation on improving the performance and scalability of the Games Launch Service."
           type="education"
-          icons={
-            <>
-              <SiTypescript />
-              <FaNode />
-              <FaAws />
-              <FaDocker />
-              <SiTerraform />
-            </>
-          }
+          icons={[
+            <SiTypescript key="ts" />,
+            <FaNode key="node" />,
+            <FaAws key="aws" />,
+            <FaDocker key="docker" />,
+          ]}
         />
         <TimelineElement
           title="Software Engineer"
@@ -79,17 +70,12 @@ export const Timeline = () => {
           The Games launch service see's a whopping 10 million requests a week! 
           And my improvements to the reality check service enabled it to handle 8000 requests per second! Take that load test!"
           type="work"
-          icons={
-            <>
-              <FaReact />
-              <FaAws />
-              <SiTypescript />
-              <SiRedux />
-              <FaDocker />
-              <SiTerraform />
-              <SiNewrelic />
-            </>
-          }
+          icons={[
+            <FaReact key="react" />,
+            <FaAws key="aws" />,
+            <SiTypescript key="ts" />,
+            <FaDocker key="docker" />,
+          ]}
         />
         <TimelineElement
           title="Software Engineer Intern"
@@ -99,14 +85,11 @@ export const Timeline = () => {
           I was responsible for maintaining the Accelerated Life Test framework which simulates the life of large storage backups in an instant. 
           During this time I implemented a new adaption of the framework moving from Perl to Python"
           type="work"
-          icons={
-            <>
-              <FaPython />
-              <SiPerl />
-              <FaDocker />
-              <FaJenkins />
-            </>
-          }
+          icons={[
+            <FaPython key="python" />,
+            <FaDocker key="docker" />,
+            <FaJenkins key="jenkins" />,
+          ]}
         />
         <TimelineElement
           title="BSc Computer Science"
@@ -114,14 +97,11 @@ export const Timeline = () => {
           date="2016 - 2020"
           description="First Class Honours. I wrote my dissertation the performance and scalability of modelling bacterial colonies and tumours."
           type="education"
-          icons={
-            <>
-              <FaC />
-              <FaJava />
-              <SiKotlin />
-              <FaPython />
-            </>
-          }
+          icons={[
+            <FaC key="c" />,
+            <FaJava key="java" />,
+            <FaPython key="python" />,
+          ]}
         />
       </VerticalTimeline>
     </div>
@@ -134,7 +114,7 @@ interface TimelineElementProps {
   date: string;
   description: string;
   type: "work" | "education";
-  icons?: React.ReactNode;
+  icons?: React.ReactNode[];
 }
 
 const TimelineElement = ({
@@ -159,7 +139,7 @@ const TimelineElement = ({
       <h3 className="vertical-timeline-element-title">{title}</h3>
       <h4 className="vertical-timeline-element-subtitle">{location}</h4>
       <p>{description}</p>
-      <div className="vertical-timeline-element-icons">{icons}</div>
+      {icons && <div className="flex flex-wrap gap-2 mt-2">{icons}</div>}
     </VerticalTimelineElement>
   );
 };

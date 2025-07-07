@@ -9,15 +9,13 @@ export default function Home() {
   return (
     <div className=" bg-[#f5f7fa] flex flex-col md:flex-col items-center justify-center">
       <SocialMedia />
-      <>
-        <AboutMe />
-        <Section title="Recently Read">
-          <Books />
-        </Section>
-        <Section title="Recently Watched">
-          <Movies />
-        </Section>
-      </>
+      <AboutMe />
+      <Section title="Recently Read">
+        <Books />
+      </Section>
+      <Section title="Recently Watched">
+        <Movies />
+      </Section>
       <h2 className="text-2xl font-bold text-[#0d3b66] p-4 w-full md:w-3/4">
         Timeline
       </h2>
