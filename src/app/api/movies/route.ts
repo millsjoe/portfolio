@@ -1,7 +1,5 @@
 import type { NextRequest } from "next/server";
 
-export const runtime = "edge";
-
 interface IMovie {
   title: string;
   year: number;
