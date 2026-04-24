@@ -2,6 +2,8 @@
 
 import { Card } from "./card";
 import { useEffect, useState } from "react";
+import { MediaGrid } from "./media-grid";
+import { Alert, Box } from "@mui/material";
 
 interface IBook {
   title: string;
@@ -14,17 +16,31 @@ interface IBook {
 export const Books = () => {
   const [books, setBooks] = useState<IBook[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const baseUrl =
-          process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-        const data = await fetch(`${baseUrl}/api/books`);
-        const booksData: IBook[] = await data.json();
-        setBooks(booksData);
+        setError(null);
+        const res = await fetch("/api/books");
+        const json = await res.json().catch(() => null);
+
+        if (!res.ok) {
+          setBooks([]);
+          setError("Couldn’t load books right now.");
+          return;
+        }
+
+        if (!Array.isArray(json)) {
+          setBooks([]);
+          setError("Unexpected response from /api/books.");
+          return;
+        }
+
+        setBooks(json as IBook[]);
       } catch (error) {
-        console.error("Error fetching books:", error);
+        setBooks([]);
+        setError("Couldn’t load books right now.");
       } finally {
         setLoading(false);
       }
@@ -35,37 +51,41 @@ export const Books = () => {
 
   if (loading) {
     return (
-      <div className="flex flex-col justify-center p-4">
-        <div className="flex flex-row items-center justify-center gap-4 mb-4">
-          {[...Array(4)].map((_, i) => (
-            <div
-              key={i}
-              className="bg-white w-[200px] min-w-[200px] p-5 rounded-[1em] shadow-md flex flex-col items-center justify-center gap-4"
-            >
-              <div className="w-full h-4 bg-gray-200 rounded animate-pulse"></div>
-              <div className="w-full h-3 bg-gray-200 rounded animate-pulse"></div>
-              <div className="w-[100px] h-[150px] bg-gray-200 rounded animate-pulse"></div>
-            </div>
-          ))}
-        </div>
-      </div>
+      <MediaGrid>
+        {Array.from({ length: 8 }).map((_, i) => (
+          <Card
+            key={i}
+            loading
+            heading="Loading"
+            text="Loading"
+            rating=" "
+          />
+        ))}
+      </MediaGrid>
+    );
+  }
+
+  if (error) {
+    return (
+      <Box sx={{ px: 1 }}>
+        <Alert severity="warning">{error}</Alert>
+      </Box>
     );
   }
 
   return (
-    <div className="flex flex-col justify-center p-4">
-      <div className="flex flex-row items-center justify-center gap-4 mb-4">
-        {books.slice(0, 8).map((book: IBook) => (
-          <Card
-            key={book.title}
-            heading={book.title}
-            text={`by ${book.author}`}
-            rating={`${book.rating}⭐`}
-            imageUrl={book.image_url}
-            link={book.link}
-          />
-        ))}
-      </div>
-    </div>
+    <MediaGrid>
+      {books.slice(0, 12).map((book: IBook) => (
+        <Card
+          key={book.title}
+          eyebrow="Book"
+          heading={book.title}
+          text={book.author ? `by ${book.author}` : ""}
+          rating={book.rating ? `${book.rating}★` : undefined}
+          imageUrl={book.image_url}
+          link={book.link}
+        />
+      ))}
+    </MediaGrid>
   );
 };

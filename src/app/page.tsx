@@ -1,47 +1,80 @@
-import { SocialMedia } from "./components/header";
 import React from "react";
 import { Timeline } from "./components/timeline";
-import { Books } from "./components/books";
-import { Section } from "./components/section";
-import { Movies } from "./components/movies";
+import { Shell } from "./components/shell";
+import { Avatar, Box, Stack, Typography } from "@mui/material";
+import { fetchAboutContent, fetchTimelineEntries } from "../lib/contentful";
 
-export default function Home() {
+export const revalidate = 60;
+
+export default async function Home() {
+  const timelineEntries = await fetchTimelineEntries();
+  const about = await fetchAboutContent();
+
   return (
-    <div className=" bg-[#f5f7fa] flex flex-col md:flex-col items-center justify-center">
-      <SocialMedia />
-      <AboutMe />
-      <Section title="Recently Read">
-        <Books />
-      </Section>
-      <Section title="Recently Watched">
-        <Movies />
-      </Section>
-      <h2 className="text-2xl font-bold text-[#0d3b66] p-4 w-full md:w-3/4">
-        Timeline
-      </h2>
-      <div className="flex justify-center min-h-screen p-4">
-        <Timeline />
-      </div>
-    </div>
+    <Shell>
+      <Hero />
+      <AboutMe about={about} />
+
+      <Box sx={{ pt: 1 }}>
+        <Typography variant="h5" sx={{ fontWeight: 900, mb: 2 }}>
+          Timeline
+        </Typography>
+        <Timeline entries={timelineEntries} />
+      </Box>
+    </Shell>
   );
 }
 
-const AboutMe = () => {
+const Hero = () => {
   return (
-    <div className="w-full md:w-3/4">
-      <h2 className="text-2xl font-bold text-[#0d3b66] p-4"> About Me</h2>
-      <p className="p-4 text-gray-700">
-        I am a Senior Software Engineer for Sky Betting and Gaming (Flutter
-        UKI), responsible for all your favourite betting products and tools like
-        the Games Launch Service and Reality Check Service. More recently, I
-        have been involved with the development of Paddy Power & Betfair -
-        gamblings in my blood at this point.
-      </p>
-      <p className="p-4 text-gray-700">
-        When I&apos;m not working, I enjoy gaming, reading and watching movies.
-        I thought it would be neat to keep you up to date on some of the things
-        I&apos;ve been reading and watching.
-      </p>
-    </div>
+    <Box sx={{ px: 1, pt: 1, pb: 1.5 }}>
+      <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
+        <Avatar
+          sx={{ width: 56, height: 56 }}
+          alt="Joe Mills"
+          src="/me.png"
+          slotProps={{ img: { referrerPolicy: "no-referrer" } }}
+        />
+        <Box>
+          <Typography variant="h4" sx={{ fontWeight: 950, lineHeight: 1.1 }}>
+            Hi! I&apos;m Joe
+          </Typography>
+          <Typography sx={{ color: "text.secondary" }}>
+            Senior Software Engineer
+          </Typography>
+        </Box>
+      </Stack>
+    </Box>
+  );
+};
+
+const AboutMe = ({
+  about,
+}: {
+  about: { heading: string; lines: string[] } | null;
+}) => {
+  const heading = about?.heading ?? "About";
+  const lines =
+    about?.lines?.length
+      ? about.lines
+      : [
+          "I am a Senior Software Engineer by trade!",
+          "When I'm not working, I enjoy gaming, reading and watching movies. I thought it would be neat to keep you up to date on some of the things I've been reading and watching.",
+        ];
+
+  return (
+    <Box sx={{ px: 1, pb: 1 }}>
+      <Typography variant="h5" sx={{ fontWeight: 900, mb: 1 }}>
+        {heading}
+      </Typography>
+      {lines.map((line, idx) => (
+        <Typography
+          key={idx}
+          sx={{ color: "text.secondary", mb: idx === lines.length - 1 ? 0 : 1.5 }}
+        >
+          {line}
+        </Typography>
+      ))}
+    </Box>
   );
 };

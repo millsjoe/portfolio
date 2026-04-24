@@ -2,6 +2,8 @@
 
 import { Card } from "./card";
 import { useEffect, useState } from "react";
+import { MediaGrid } from "./media-grid";
+import { Alert, Box } from "@mui/material";
 
 interface IMovie {
   title: string;
@@ -13,17 +15,37 @@ interface IMovie {
 export const Movies = () => {
   const [movies, setMovies] = useState<IMovie[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const baseUrl =
-          process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-        const data = await fetch(`${baseUrl}/api/movies`);
-        const moviesData: IMovie[] = await data.json();
-        setMovies(moviesData);
+        setError(null);
+        const res = await fetch("/api/movies");
+        const json = await res.json().catch(() => null);
+
+        if (!res.ok) {
+          const message =
+            (json &&
+              typeof json === "object" &&
+              "error" in json &&
+              (json as any).error) ||
+            "Oops — this isn’t quite working as expected right now.";
+          setMovies([]);
+          setError(String(message));
+          return;
+        }
+
+        if (!Array.isArray(json)) {
+          setMovies([]);
+          setError("Unexpected response from /api/movies.");
+          return;
+        }
+
+        setMovies(json as IMovie[]);
       } catch (error) {
-        console.error("Error fetching movies:", error);
+        setMovies([]);
+        setError("Couldn’t load movies right now.");
       } finally {
         setLoading(false);
       }
@@ -34,36 +56,34 @@ export const Movies = () => {
 
   if (loading) {
     return (
-      <div className="flex flex-col justify-center p-4">
-        <div className="flex flex-row items-center justify-center gap-4 mb-4">
-          {[...Array(4)].map((_, i) => (
-            <div
-              key={i}
-              className="bg-white w-[200px] min-w-[200px] p-5 rounded-[1em] shadow-md flex flex-col items-center justify-center gap-4"
-            >
-              <div className="w-full h-4 bg-gray-200 rounded animate-pulse"></div>
-              <div className="w-full h-3 bg-gray-200 rounded animate-pulse"></div>
-              <div className="w-[100px] h-[150px] bg-gray-200 rounded animate-pulse"></div>
-            </div>
-          ))}
-        </div>
-      </div>
+      <MediaGrid>
+        {Array.from({ length: 8 }).map((_, i) => (
+          <Card key={i} loading heading="Loading" text="Loading" />
+        ))}
+      </MediaGrid>
+    );
+  }
+
+  if (error) {
+    return (
+      <Box sx={{ px: 1 }}>
+        <Alert severity="warning">{error}</Alert>
+      </Box>
     );
   }
 
   return (
-    <div className="flex flex-col justify-center p-4">
-      <div className="flex flex-row items-center justify-center gap-4 mb-4">
-        {movies.slice(0, 8).map((movie) => (
-          <Card
-            key={movie.title}
-            heading={movie.title}
-            text={movie.year}
-            imageUrl={`https://${movie.image_url}`}
-            link={movie.link}
-          />
-        ))}
-      </div>
-    </div>
+    <MediaGrid>
+      {movies.slice(0, 12).map((movie) => (
+        <Card
+          key={movie.title}
+          eyebrow="Movie"
+          heading={movie.title}
+          text={movie.year}
+          imageUrl={`https://${movie.image_url}`}
+          link={movie.link}
+        />
+      ))}
+    </MediaGrid>
   );
 };
