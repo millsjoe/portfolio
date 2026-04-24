@@ -65,7 +65,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
             `radial-gradient(800px 240px at 0% 0%, ${alpha("#2B5B66", 0.18)} 0%, transparent 60%)`,
             `radial-gradient(600px 220px at 100% 0%, ${alpha("#6B5CA5", 0.14)} 0%, transparent 55%)`,
           ].join(","),
-          backdropFilter: "blur(10px)",
+          backdropFilter: { xs: "none", sm: "blur(10px)" },
           borderBottom: "1px solid",
           borderColor: "divider",
         }}
@@ -167,7 +167,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
                 `radial-gradient(900px 300px at 0% 0%, ${alpha("#2B5B66", 0.18)} 0%, transparent 60%)`,
                 `radial-gradient(700px 280px at 100% 0%, ${alpha("#6B5CA5", 0.14)} 0%, transparent 55%)`,
               ].join(","),
-              backdropFilter: "blur(10px)",
+              backdropFilter: { xs: "none", sm: "blur(10px)" },
             },
           },
         }}

@@ -61,13 +61,44 @@ const theme = createTheme({
     },
     MuiCssBaseline: {
       styleOverrides: {
-        body: {
+        html: {
+          height: "100%",
           backgroundColor: "#f3f6fa",
           backgroundImage: [
             `radial-gradient(1200px 520px at 10% -10%, ${alpha("#2B5B66", 0.22)} 0%, transparent 60%)`,
             `radial-gradient(900px 480px at 110% 10%, ${alpha("#6B5CA5", 0.16)} 0%, transparent 55%)`,
+            `radial-gradient(1100px 520px at 50% 120%, ${alpha("#2B5B66", 0.10)} 0%, transparent 60%)`,
           ].join(","),
-          backgroundAttachment: "fixed",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundAttachment: "scroll",
+          "@media (min-width:600px)": {
+            backgroundAttachment: "fixed",
+          },
+        },
+        body: {
+          minHeight: "100%",
+          backgroundColor: "#f3f6fa",
+          overscrollBehaviorY: "none",
+        },
+        "body::before": {
+          content: '""',
+          position: "fixed",
+          inset: 0,
+          zIndex: -1,
+          pointerEvents: "none",
+          backgroundColor: "#f3f6fa",
+          backgroundImage: [
+            `radial-gradient(1200px 520px at 10% -10%, ${alpha("#2B5B66", 0.22)} 0%, transparent 60%)`,
+            `radial-gradient(900px 480px at 110% 10%, ${alpha("#6B5CA5", 0.16)} 0%, transparent 55%)`,
+            `radial-gradient(1100px 520px at 50% 120%, ${alpha("#2B5B66", 0.10)} 0%, transparent 60%)`,
+          ].join(","),
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          transform: "translateZ(0)",
+          "@media (min-width:600px)": {
+            content: "none",
+          },
         },
       },
     },

@@ -1,5 +1,3 @@
-"use client";
-
 import { Box } from "@mui/material";
 
 export function MediaGrid({ children }: { children: React.ReactNode }) {
